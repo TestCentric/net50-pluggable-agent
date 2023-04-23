@@ -17,7 +17,7 @@ BuildSettings.Initialize
 	title: "NetCore50PluggableAgent",
 	solutionFile: "net50-pluggable-agent.sln",
 	unitTests: "net50-agent-launcher.tests.exe",
-	guiVersion: "2.0.0-dev00226",
+	guiVersion: "2.0.0-dev00274",
 	githubOwner: "TestCentric",
 	githubRepository: "net50-pluggable-agent"
 );
@@ -28,15 +28,15 @@ if (BuildSystem.IsRunningOnAppVeyor)
 	AppVeyor.UpdateBuildVersion(BuildSettings.PackageVersion + "-" + AppVeyor.Environment.Build.Number);
 
 var packageTests = new PackageTest[] {
-//	new PackageTest(
-//		1, "NetCore11PackageTest", "Run mock-assembly.dll targeting .NET Core 1.1",
-//		"tests/netcoreapp1.1/mock-assembly.dll --run --unattended", CommonResult),
-//	new PackageTest(
-//		1, "NetCore21PackageTest", "Run mock-assembly.dll targeting .NET Core 2.1",
-//		"tests/netcoreapp2.1/mock-assembly.dll --run --unattended", CommonResult),
-//	new PackageTest(
-//		1, "NetCore31PackageTest", "Run mock-assembly.dll targeting .NET Core 3.1",
-//		"tests/netcoreapp3.1/mock-assembly.dll --run --unattended", CommonResult),
+	new PackageTest(
+		1, "NetCore11PackageTest", "Run mock-assembly.dll targeting .NET Core 1.1",
+		"tests/netcoreapp1.1/mock-assembly.dll --run --unattended", CommonResult),
+	new PackageTest(
+		1, "NetCore21PackageTest", "Run mock-assembly.dll targeting .NET Core 2.1",
+		"tests/netcoreapp2.1/mock-assembly.dll --run --unattended", CommonResult),
+	new PackageTest(
+		1, "NetCore31PackageTest", "Run mock-assembly.dll targeting .NET Core 3.1",
+		"tests/netcoreapp3.1/mock-assembly.dll --run --unattended", CommonResult),
 	new PackageTest(
 		1, "Net50PackageTest", "Run mock-assembly.dll targeting .NET 5.0",
 		"tests/net5.0/mock-assembly.dll --run --unattended", CommonResult)
@@ -53,7 +53,7 @@ var nugetPackage = new NuGetPackage(
 			"net50-pluggable-agent.dll", "net50-pluggable-agent.dll.config",
 			"nunit.engine.api.dll", "testcentric.engine.core.dll",
 			"testcentric.engine.metadata.dll", "testcentric.extensibility.dll") },
-	testRunner: new GuiRunner("TestCentric.GuiRunner", "2.0.0-dev00226"),
+	testRunner: new GuiRunner("TestCentric.GuiRunner", "2.0.0-dev00274"),
 	tests: packageTests );
 
 var chocolateyPackage = new ChocolateyPackage(
@@ -67,7 +67,7 @@ var chocolateyPackage = new ChocolateyPackage(
 				"net50-pluggable-agent.dll", "net50-pluggable-agent.dll.config",
 				"nunit.engine.api.dll", "testcentric.engine.core.dll",
 				"testcentric.engine.metadata.dll", "testcentric.extensibility.dll") },
-		testRunner: new GuiRunner("testcentric-gui", "2.0.0-dev00226"),
+		testRunner: new GuiRunner("testcentric-gui", "2.0.0-dev00274"),
 		tests: packageTests);
 
 BuildSettings.Packages.AddRange(new PackageDefinition[] { nugetPackage, chocolateyPackage });
