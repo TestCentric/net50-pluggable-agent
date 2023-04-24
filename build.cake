@@ -3,7 +3,7 @@
 #tool nuget:?package=GitReleaseManager&version=0.12.1
 
 // Load the recipe
-#load nuget:?package=TestCentric.Cake.Recipe&version=1.0.0-dev00040
+#load nuget:?package=TestCentric.Cake.Recipe&version=1.0.0-dev00043
 // Comment out above line and uncomment below for local tests of recipe changes
 //#load ../TestCentric.Cake.Recipe/recipe/*.cake
 
@@ -27,19 +27,54 @@ Information($"Net50PluggableAgent {BuildSettings.Configuration} version {BuildSe
 if (BuildSystem.IsRunningOnAppVeyor)
 	AppVeyor.UpdateBuildVersion(BuildSettings.PackageVersion + "-" + AppVeyor.Environment.Build.Number);
 
+ExpectedResult MockAssemblyResult => new ExpectedResult("Failed")
+{
+	Total = 36,
+	Passed = 23,
+	Failed = 5,
+	Warnings = 1,
+	Inconclusive = 1,
+	Skipped = 7,
+	Assemblies = new ExpectedAssemblyResult[]
+	{
+		new ExpectedAssemblyResult("mock-assembly.dll", "Net50AgentLauncher")
+	}
+};
+
+ExpectedResult AspNetCoreResult = new ExpectedResult("Passed")
+{
+    Assemblies = new [] { new ExpectedAssemblyResult("aspnetcore-test.dll", "Net50AgentLauncher") }
+};
+
 var packageTests = new PackageTest[] {
+	// Tests of single assemblies targeting each runtime we support
 	new PackageTest(
 		1, "NetCore11PackageTest", "Run mock-assembly.dll targeting .NET Core 1.1",
-		"tests/netcoreapp1.1/mock-assembly.dll --run --unattended", CommonResult),
+		"tests/netcoreapp1.1/mock-assembly.dll", MockAssemblyResult),
 	new PackageTest(
 		1, "NetCore21PackageTest", "Run mock-assembly.dll targeting .NET Core 2.1",
-		"tests/netcoreapp2.1/mock-assembly.dll --run --unattended", CommonResult),
+		"tests/netcoreapp2.1/mock-assembly.dll", MockAssemblyResult),
 	new PackageTest(
 		1, "NetCore31PackageTest", "Run mock-assembly.dll targeting .NET Core 3.1",
-		"tests/netcoreapp3.1/mock-assembly.dll --run --unattended", CommonResult),
+		"tests/netcoreapp3.1/mock-assembly.dll", MockAssemblyResult),
 	new PackageTest(
 		1, "Net50PackageTest", "Run mock-assembly.dll targeting .NET 5.0",
-		"tests/net5.0/mock-assembly.dll --run --unattended", CommonResult)
+		"tests/net5.0/mock-assembly.dll", MockAssemblyResult),
+	// AspNetCore Tests
+	new PackageTest(
+		1, "AspNetCore31Test", "Run test using AspNetCore targeting .NET Core 3.1",
+		"tests/netcoreapp3.1/aspnetcore-test.dll", AspNetCoreResult),
+	new PackageTest(
+		1, "AspNetCore50Test", "Run test using AspNetCore targeting .NET 5.0",
+		"tests/netcoreapp3.1/aspnetcore-test.dll", AspNetCoreResult),
+	// Windows Forms Test
+    new PackageTest(
+		1, "Net50WindowsFormsTest", "Run test using windows forms under .NET 5.0",
+        "tests/net5.0-windows/windows-forms-test.dll",
+        new ExpectedResult("Passed")
+        {
+            Assemblies = new [] { new ExpectedAssemblyResult("windows-forms-test.dll", "Net50AgentLauncher") }
+        })
 };
 
 var nugetPackage = new NuGetPackage(
@@ -71,20 +106,6 @@ var chocolateyPackage = new ChocolateyPackage(
 		tests: packageTests);
 
 BuildSettings.Packages.AddRange(new PackageDefinition[] { nugetPackage, chocolateyPackage });
-
-ExpectedResult CommonResult => new ExpectedResult("Failed")
-{
-	Total = 36,
-	Passed = 23,
-	Failed = 5,
-	Warnings = 1,
-	Inconclusive = 1,
-	Skipped = 7,
-	Assemblies = new ExpectedAssemblyResult[]
-	{
-		new ExpectedAssemblyResult("mock-assembly.dll", "Net50AgentLauncher")
-	}
-};
 
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
