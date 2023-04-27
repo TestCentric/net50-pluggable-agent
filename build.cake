@@ -3,7 +3,7 @@
 #tool nuget:?package=GitReleaseManager&version=0.12.1
 
 // Load the recipe
-#load nuget:?package=TestCentric.Cake.Recipe&version=1.0.0-dev00043
+#load nuget:?package=TestCentric.Cake.Recipe&version=1.0.0-dev00047
 // Comment out above line and uncomment below for local tests of recipe changes
 //#load ../TestCentric.Cake.Recipe/recipe/*.cake
 
@@ -14,18 +14,13 @@ static readonly string GUI_RUNNER = "tools/testcentric.exe";
 BuildSettings.Initialize
 (
 	context: Context,
-	title: "NetCore50PluggableAgent",
+	title: "Net50PluggableAgent",
 	solutionFile: "net50-pluggable-agent.sln",
 	unitTests: "net50-agent-launcher.tests.exe",
-	guiVersion: "2.0.0-dev00274",
+	guiVersion: "2.0.0-alpha8",
 	githubOwner: "TestCentric",
 	githubRepository: "net50-pluggable-agent"
 );
-
-Information($"Net50PluggableAgent {BuildSettings.Configuration} version {BuildSettings.PackageVersion}");
-
-if (BuildSystem.IsRunningOnAppVeyor)
-	AppVeyor.UpdateBuildVersion(BuildSettings.PackageVersion + "-" + AppVeyor.Environment.Build.Number);
 
 ExpectedResult MockAssemblyResult => new ExpectedResult("Failed")
 {
@@ -88,7 +83,7 @@ var nugetPackage = new NuGetPackage(
 			"net50-pluggable-agent.dll", "net50-pluggable-agent.dll.config",
 			"nunit.engine.api.dll", "testcentric.engine.core.dll",
 			"testcentric.engine.metadata.dll", "testcentric.extensibility.dll") },
-	testRunner: new GuiRunner("TestCentric.GuiRunner", "2.0.0-dev00274"),
+	testRunner: new GuiRunner("TestCentric.GuiRunner", "2.0.0-alpha8"),
 	tests: packageTests );
 
 var chocolateyPackage = new ChocolateyPackage(
@@ -102,7 +97,7 @@ var chocolateyPackage = new ChocolateyPackage(
 				"net50-pluggable-agent.dll", "net50-pluggable-agent.dll.config",
 				"nunit.engine.api.dll", "testcentric.engine.core.dll",
 				"testcentric.engine.metadata.dll", "testcentric.extensibility.dll") },
-		testRunner: new GuiRunner("testcentric-gui", "2.0.0-dev00274"),
+		testRunner: new GuiRunner("testcentric-gui", "2.0.0-alpha8"),
 		tests: packageTests);
 
 BuildSettings.Packages.AddRange(new PackageDefinition[] { nugetPackage, chocolateyPackage });
