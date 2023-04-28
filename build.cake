@@ -3,7 +3,7 @@
 #tool nuget:?package=GitReleaseManager&version=0.12.1
 
 // Load the recipe
-#load nuget:?package=TestCentric.Cake.Recipe&version=1.0.0-dev00047
+#load nuget:?package=TestCentric.Cake.Recipe&version=1.0.0-dev00048
 // Comment out above line and uncomment below for local tests of recipe changes
 //#load ../TestCentric.Cake.Recipe/recipe/*.cake
 
@@ -107,6 +107,7 @@ BuildSettings.Packages.AddRange(new PackageDefinition[] { nugetPackage, chocolat
 //////////////////////////////////////////////////////////////////////
 
 Task("Appveyor")
+	.IsDependentOn("DumpSettings")
 	.IsDependentOn("Build")
 	.IsDependentOn("Test")
 	.IsDependentOn("Package")
