@@ -107,8 +107,12 @@ BuildSettings.Packages.AddRange(new PackageDefinition[] { nugetPackage, chocolat
 //////////////////////////////////////////////////////////////////////
 
 Task("Appveyor")
-	.IsDependentOn("BuildTestAndPackage")
-	.IsDependentOn("Publish");
+	.IsDependentOn("Build")
+	.IsDependentOn("Test")
+	.IsDependentOn("Package")
+	.IsDependentOn("Publish")
+	.IsDependentOn("CreateDraftRelease")
+	.IsDependentOn("CreateProductionRelease");
 
 Task("BuildTestAndPackage")
 	.IsDependentOn("Build")
