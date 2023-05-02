@@ -1,15 +1,9 @@
 #tool NuGet.CommandLine&version=6.0.0
-#tool nuget:?package=GitVersion.CommandLine&version=5.6.3
-#tool nuget:?package=GitReleaseManager&version=0.12.1
-
-// Load the recipe
-#load nuget:?package=TestCentric.Cake.Recipe&version=1.0.0-dev00048
+#load nuget:?package=TestCentric.Cake.Recipe&version=1.0.0-dev00061
 // Comment out above line and uncomment below for local tests of recipe changes
 //#load ../TestCentric.Cake.Recipe/recipe/*.cake
 
 var target = Argument("target", Argument("t", "Default"));
-
-static readonly string GUI_RUNNER = "tools/testcentric.exe";
 
 BuildSettings.Initialize
 (
@@ -17,7 +11,6 @@ BuildSettings.Initialize
 	title: "Net50PluggableAgent",
 	solutionFile: "net50-pluggable-agent.sln",
 	unitTests: "net50-agent-launcher.tests.exe",
-	guiVersion: "2.0.0-alpha8",
 	githubOwner: "TestCentric",
 	githubRepository: "net50-pluggable-agent"
 );
@@ -114,15 +107,6 @@ Task("Appveyor")
 	.IsDependentOn("Publish")
 	.IsDependentOn("CreateDraftRelease")
 	.IsDependentOn("CreateProductionRelease");
-
-Task("BuildTestAndPackage")
-	.IsDependentOn("Build")
-	.IsDependentOn("Test")
-	.IsDependentOn("Package");
-
-//Task("Travis")
-//	.IsDependentOn("Build")
-//	.IsDependentOn("Test");
 
 Task("Default")
     .IsDependentOn("Build");
