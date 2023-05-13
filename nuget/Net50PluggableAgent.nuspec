@@ -4,7 +4,7 @@
   <metadata>
     <id>NUnit.Extension.Net50PluggableAgent</id>
     <version>0.0.0</version>
-    <title>TestCentric Extension- Net50 Pluggable Agent</title>
+    <title>TestCentric Extension- Net 5.0 Pluggable Agent</title>
     <authors>Charlie Poole</authors>
     <owners>Charlie Poole</owners>
     <copyright>Copyright (c) 2023 Charlie Poole</copyright>
@@ -15,7 +15,7 @@
     <iconUrl>https://test-centric.org/assets/img/testcentric_128x128.png</iconUrl>
     <icon>testcentric.png</icon>
     <language>en-US</language>
-    <tags>testcentric nunit gui runner agent netcoreapp5.0</tags>
+    <tags>testcentric nunit gui runner agent net5.0</tags>
     <summary>TestCentric Engine extension for running tests under .NET 5.0</summary>
     <description>This extension allow the TestCentric GUI to run tests under the .NET 5.0 runtime.</description>
     <releaseNotes>https://raw.githubusercontent.com/TestCentric/net50-pluggable-agent/master/CHANGES.txt</releaseNotes>
