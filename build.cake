@@ -1,6 +1,6 @@
 #tool NuGet.CommandLine&version=6.0.0
 
-#load nuget:?package=TestCentric.Cake.Recipe&version=1.0.0
+#load nuget:?package=TestCentric.Cake.Recipe&version=1.0.1-dev00015
 // Comment out above line and uncomment below for local tests of recipe changes
 //#load ../TestCentric.Cake.Recipe/recipe/*.cake
 
@@ -68,31 +68,36 @@ var packageTests = new PackageTest[] {
 
 var nugetPackage = new NuGetPackage(
 	id: "NUnit.Extension.Net50PluggableAgent",
-	source: "nuget/Net50PluggableAgent.nuspec",
-	basePath: BuildSettings.OutputDirectory,
-	checks: new PackageCheck[] {
-		HasFiles("LICENSE.txt", "CHANGES.txt"),
-		HasDirectory("tools").WithFiles("net50-agent-launcher.dll", "nunit.engine.api.dll"),
-		HasDirectory("tools/agent").WithFiles(
-			"net50-pluggable-agent.dll", "net50-pluggable-agent.dll.config",
-			"nunit.engine.api.dll", "testcentric.engine.core.dll",
-			"testcentric.engine.metadata.dll", "testcentric.extensibility.dll") },
+	title: "Net50 Pluggable Agent",
+	description: "TestCentric Engine extension for running tests under .NET 5.0",
+	tags: new [] { "testcentric", "nunit", "gui runner", "agent", "net5.0" },
+	packageContent: new PackageContent(
+		new FilePath[] { "../../LICENSE.txt", "../../CHANGES.txt", "../../testcentric.png" },
+		new DirectoryContent("tools").WithFiles(
+			"net50-agent-launcher.dll", "net50-agent-launcher.pdb", "nunit.engine.api.dll", "testcentric.engine.api.dll"),
+		new DirectoryContent("tools/agent").WithFiles(
+			"agent/net50-pluggable-agent.dll", "agent/net50-pluggable-agent.pdb", "agent/net50-pluggable-agent.dll.config",
+			"agent/net50-pluggable-agent.deps.json", "agent/net50-pluggable-agent.runtimeconfig.json", "agent/net50-pluggable-agent.runtimeconfig.dev.json",
+			"agent/nunit.engine.api.dll", "agent/testcentric.engine.core.dll", "agent/testcentric.engine.metadata.dll", "agent/testcentric.extensibility.dll")),
 	testRunner: new GuiRunner("TestCentric.GuiRunner", "2.0.0-beta1"),
 	tests: packageTests );
 
 var chocolateyPackage = new ChocolateyPackage(
-		id: "nunit-extension-net50-pluggable-agent",
-		source: "choco/net50-pluggable-agent.nuspec",
-		basePath: BuildSettings.OutputDirectory,
-		checks: new PackageCheck[] {
-			HasDirectory("tools").WithFiles("net50-agent-launcher.dll", "nunit.engine.api.dll")
-				.WithFiles("LICENSE.txt", "CHANGES.txt", "VERIFICATION.txt"),
-			HasDirectory("tools/agent").WithFiles(
-				"net50-pluggable-agent.dll", "net50-pluggable-agent.dll.config",
-				"nunit.engine.api.dll", "testcentric.engine.core.dll",
-				"testcentric.engine.metadata.dll", "testcentric.extensibility.dll") },
-		testRunner: new GuiRunner("testcentric-gui", "2.0.0-beta1"),
-		tests: packageTests);
+	id: "nunit-extension-net50-pluggable-agent",
+	title: "Net50 Pluggable Agent",
+	description: "TestCentric Engine extension for running tests under .NET 5.0",
+	tags: new [] { "testcentric", "nunit", "gui runner", "agent", "net5.0" },
+	packageContent: new PackageContent(
+		new FilePath[] { "../../testcentric.png" },
+		new DirectoryContent("tools").WithFiles(
+			"../../LICENSE.txt", "../../CHANGES.txt", "../../VERIFICATION.txt",
+			"net50-agent-launcher.dll", "net50-agent-launcher.pdb", "nunit.engine.api.dll", "testcentric.engine.api.dll"),
+		new DirectoryContent("tools/agent").WithFiles(
+			"agent/net50-pluggable-agent.dll", "agent/net50-pluggable-agent.pdb", "agent/net50-pluggable-agent.dll.config",
+			"agent/net50-pluggable-agent.deps.json", "agent/net50-pluggable-agent.runtimeconfig.json", "agent/net50-pluggable-agent.runtimeconfig.dev.json",
+			"agent/nunit.engine.api.dll", "agent/testcentric.engine.core.dll", "agent/testcentric.engine.metadata.dll", "agent/testcentric.extensibility.dll")),
+	testRunner: new GuiRunner("testcentric-gui", "2.0.0-beta1"),
+	tests: packageTests);
 
 BuildSettings.Packages.AddRange(new PackageDefinition[] { nugetPackage, chocolateyPackage });
 
