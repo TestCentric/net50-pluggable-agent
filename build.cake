@@ -1,6 +1,6 @@
 #tool NuGet.CommandLine&version=6.0.0
 
-#load nuget:?package=TestCentric.Cake.Recipe&version=1.0.1-dev00015
+#load nuget:?package=TestCentric.Cake.Recipe&version=1.0.1-dev00019
 // Comment out above line and uncomment below for local tests of recipe changes
 //#load ../TestCentric.Cake.Recipe/recipe/*.cake
 
@@ -16,90 +16,7 @@ BuildSettings.Initialize
 	githubRepository: "net50-pluggable-agent"
 );
 
-ExpectedResult MockAssemblyResult => new ExpectedResult("Failed")
-{
-	Total = 36,
-	Passed = 23,
-	Failed = 5,
-	Warnings = 1,
-	Inconclusive = 1,
-	Skipped = 7,
-	Assemblies = new ExpectedAssemblyResult[]
-	{
-		new ExpectedAssemblyResult("mock-assembly.dll", "Net50AgentLauncher")
-	}
-};
-
-ExpectedResult AspNetCoreResult = new ExpectedResult("Passed")
-{
-    Assemblies = new [] { new ExpectedAssemblyResult("aspnetcore-test.dll", "Net50AgentLauncher") }
-};
-
-var packageTests = new PackageTest[] {
-	// Tests of single assemblies targeting each runtime we support
-	new PackageTest(
-		1, "NetCore11PackageTest", "Run mock-assembly.dll targeting .NET Core 1.1",
-		"tests/netcoreapp1.1/mock-assembly.dll", MockAssemblyResult),
-	new PackageTest(
-		1, "NetCore21PackageTest", "Run mock-assembly.dll targeting .NET Core 2.1",
-		"tests/netcoreapp2.1/mock-assembly.dll", MockAssemblyResult),
-	new PackageTest(
-		1, "NetCore31PackageTest", "Run mock-assembly.dll targeting .NET Core 3.1",
-		"tests/netcoreapp3.1/mock-assembly.dll", MockAssemblyResult),
-	new PackageTest(
-		1, "Net50PackageTest", "Run mock-assembly.dll targeting .NET 5.0",
-		"tests/net5.0/mock-assembly.dll", MockAssemblyResult),
-	// AspNetCore Tests
-	new PackageTest(
-		1, "AspNetCore31Test", "Run test using AspNetCore targeting .NET Core 3.1",
-		"tests/netcoreapp3.1/aspnetcore-test.dll", AspNetCoreResult),
-	new PackageTest(
-		1, "AspNetCore50Test", "Run test using AspNetCore targeting .NET 5.0",
-		"tests/netcoreapp3.1/aspnetcore-test.dll", AspNetCoreResult),
-	// Windows Forms Test
-    new PackageTest(
-		1, "Net50WindowsFormsTest", "Run test using windows forms under .NET 5.0",
-        "tests/net5.0-windows/windows-forms-test.dll",
-        new ExpectedResult("Passed")
-        {
-            Assemblies = new [] { new ExpectedAssemblyResult("windows-forms-test.dll", "Net50AgentLauncher") }
-        })
-};
-
-var nugetPackage = new NuGetPackage(
-	id: "NUnit.Extension.Net50PluggableAgent",
-	title: "Net50 Pluggable Agent",
-	description: "TestCentric Engine extension for running tests under .NET 5.0",
-	tags: new [] { "testcentric", "nunit", "gui runner", "agent", "net5.0" },
-	packageContent: new PackageContent(
-		new FilePath[] { "../../LICENSE.txt", "../../CHANGES.txt", "../../testcentric.png" },
-		new DirectoryContent("tools").WithFiles(
-			"net50-agent-launcher.dll", "net50-agent-launcher.pdb", "nunit.engine.api.dll", "testcentric.engine.api.dll"),
-		new DirectoryContent("tools/agent").WithFiles(
-			"agent/net50-pluggable-agent.dll", "agent/net50-pluggable-agent.pdb", "agent/net50-pluggable-agent.dll.config",
-			"agent/net50-pluggable-agent.deps.json", "agent/net50-pluggable-agent.runtimeconfig.json", "agent/net50-pluggable-agent.runtimeconfig.dev.json",
-			"agent/nunit.engine.api.dll", "agent/testcentric.engine.core.dll", "agent/testcentric.engine.metadata.dll", "agent/testcentric.extensibility.dll")),
-	testRunner: new GuiRunner("TestCentric.GuiRunner", "2.0.0-beta1"),
-	tests: packageTests );
-
-var chocolateyPackage = new ChocolateyPackage(
-	id: "nunit-extension-net50-pluggable-agent",
-	title: "Net50 Pluggable Agent",
-	description: "TestCentric Engine extension for running tests under .NET 5.0",
-	tags: new [] { "testcentric", "nunit", "gui runner", "agent", "net5.0" },
-	packageContent: new PackageContent(
-		new FilePath[] { "../../testcentric.png" },
-		new DirectoryContent("tools").WithFiles(
-			"../../LICENSE.txt", "../../CHANGES.txt", "../../VERIFICATION.txt",
-			"net50-agent-launcher.dll", "net50-agent-launcher.pdb", "nunit.engine.api.dll", "testcentric.engine.api.dll"),
-		new DirectoryContent("tools/agent").WithFiles(
-			"agent/net50-pluggable-agent.dll", "agent/net50-pluggable-agent.pdb", "agent/net50-pluggable-agent.dll.config",
-			"agent/net50-pluggable-agent.deps.json", "agent/net50-pluggable-agent.runtimeconfig.json", "agent/net50-pluggable-agent.runtimeconfig.dev.json",
-			"agent/nunit.engine.api.dll", "agent/testcentric.engine.core.dll", "agent/testcentric.engine.metadata.dll", "agent/testcentric.extensibility.dll")),
-	testRunner: new GuiRunner("testcentric-gui", "2.0.0-beta1"),
-	tests: packageTests);
-
-BuildSettings.Packages.AddRange(new PackageDefinition[] { nugetPackage, chocolateyPackage });
+BuildSettings.Packages.AddRange(new PluggableAgentFactory(".NetCoreApp, Version=5.0").Packages);
 
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
