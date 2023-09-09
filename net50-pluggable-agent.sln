@@ -22,13 +22,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mock-assembly", "src\mock-a
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "net50-agent-launcher", "src\launcher\net50-agent-launcher.csproj", "{98BDBD08-D9E8-48DD-ADEC-79B8C5512B73}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "net50-pluggable-agent", "src\agent-exe\net50-pluggable-agent.csproj", "{D46BEB3E-FC40-412A-8619-CC6E80A1BA21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "net50-agent", "src\agent-exe\net50-agent.csproj", "{D46BEB3E-FC40-412A-8619-CC6E80A1BA21}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "net50-agent-launcher.tests", "src\tests\net50-agent-launcher.tests.csproj", "{7080F8EB-9B5F-4118-A3DE-10E7C89C792D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aspnetcore-test", "src\aspnetcore-test\aspnetcore-test.csproj", "{3F981419-89B3-41B7-B7F6-83C657786749}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "windows-forms-test", "src\windows-forms-test\windows-forms-test.csproj", "{A66E38F8-2A76-46E5-B337-F3732EA54630}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "net50-agent.tests", "src\agent-tests\net50-agent.tests.csproj", "{D1B8374E-21CB-4C9B-BC40-498F458416EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -112,6 +114,18 @@ Global
 		{A66E38F8-2A76-46E5-B337-F3732EA54630}.Release|x64.Build.0 = Release|Any CPU
 		{A66E38F8-2A76-46E5-B337-F3732EA54630}.Release|x86.ActiveCfg = Release|Any CPU
 		{A66E38F8-2A76-46E5-B337-F3732EA54630}.Release|x86.Build.0 = Release|Any CPU
+		{D1B8374E-21CB-4C9B-BC40-498F458416EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1B8374E-21CB-4C9B-BC40-498F458416EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1B8374E-21CB-4C9B-BC40-498F458416EA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D1B8374E-21CB-4C9B-BC40-498F458416EA}.Debug|x64.Build.0 = Debug|Any CPU
+		{D1B8374E-21CB-4C9B-BC40-498F458416EA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D1B8374E-21CB-4C9B-BC40-498F458416EA}.Debug|x86.Build.0 = Debug|Any CPU
+		{D1B8374E-21CB-4C9B-BC40-498F458416EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1B8374E-21CB-4C9B-BC40-498F458416EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1B8374E-21CB-4C9B-BC40-498F458416EA}.Release|x64.ActiveCfg = Release|Any CPU
+		{D1B8374E-21CB-4C9B-BC40-498F458416EA}.Release|x64.Build.0 = Release|Any CPU
+		{D1B8374E-21CB-4C9B-BC40-498F458416EA}.Release|x86.ActiveCfg = Release|Any CPU
+		{D1B8374E-21CB-4C9B-BC40-498F458416EA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
