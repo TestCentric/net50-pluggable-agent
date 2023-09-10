@@ -9,7 +9,11 @@ using System.IO;
 using System.Security;
 using TestCentric.Engine.Agents;
 using TestCentric.Engine.Internal;
+#if NETFRAMEWORK
+using TestCentric.Engine.Communication.Transports.Remoting;
+#else
 using TestCentric.Engine.Communication.Transports.Tcp;
+#endif
 
 namespace TestCentric.Agents
 {
