@@ -23,19 +23,6 @@ issue-labels-alias:
   plural: Documentation
 # Configuration values used when creating new releases
 create:
-  include-footer: true
-  footer-heading: Packages
-  footer-content: >-
-    There are two different downloads for this agent.
-    <ul>
-    <li>For a chocolatey install: `nunit-extension-net50-pluggable-agent.{milestone}.nupkg`
-    <li>For a nuget install: `NUnit.Extension.Net50PluggableAgent.{milestone}.nupkg`
-    </ul>
-    You may also download the TestCentric GUI from
-    [chocolatey.org](https://chocolatey.org/packages/nunit-extension-net50-pluggable-agent/) 
-    or [nuget.org](https://nuget.org/packages/NUnit.Extension.Net50PluggableAgent/).
-  footer-includes-milestone: true
-  milestone-replace-text: '{milestone}'
   include-sha-section: true
   sha-section-heading: "SHA256 Hashes of the release artifacts"
   sha-section-line-format: "- `{1}\t{0}`"
