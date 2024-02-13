@@ -81,9 +81,6 @@ publish
 # Publish Web Output
 *.Publish.xml
 
-# NuGet Packaging Directory
-packaging
-
 # Windows Azure Build Output
 csx
 *.build.csdef
@@ -118,7 +115,7 @@ TestResult.xml
 *.VisualState.xml
 
 # Packaging Directory
-package
+packaging
 
 # Tools pulled from nuget
 tools

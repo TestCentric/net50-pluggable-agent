@@ -1,6 +1,4 @@
-#tool NuGet.CommandLine&version=6.0.0
-
-#load nuget:?package=TestCentric.Cake.Recipe&version=1.1.0-dev00065
+#load nuget:?package=TestCentric.Cake.Recipe&version=1.1.0-dev00082
 // Comment out above line and uncomment below for local tests of recipe changes
 //#load ../TestCentric.Cake.Recipe/recipe/*.cake
 
@@ -79,9 +77,9 @@ BuildSettings.Packages.Add(new NuGetPackage(
 			new DirectoryContent("tools/agent").WithFiles(
 				"agent/net50-agent.dll", "agent/net50-agent.pdb", "agent/net50-agent.dll.config",
 				"agent/net50-agent.deps.json", $"agent/net50-agent.runtimeconfig.json",
-				"agent/TestCentric.Agent.Core.dll", "agent/testcentric.engine.core.dll",
+				"agent/TestCentric.Agent.Core.dll",
 				"agent/testcentric.engine.api.dll", "agent/testcentric.extensibility.api.dll",
-				"agent/testcentric.extensibility.dll", "agent/testcentric.engine.metadata.dll",
+				"agent/testcentric.extensibility.dll", "agent/testcentric.metadata.dll",
 				"agent/TestCentric.InternalTrace.dll",
 				"agent/Microsoft.Bcl.AsyncInterfaces.dll", "agent/Microsoft.Extensions.DependencyModel.dll",
 				"agent/System.Text.Encodings.Web.dll", "agent/System.Runtime.CompilerServices.Unsafe.dll",
@@ -104,9 +102,9 @@ BuildSettings.Packages.Add(new ChocolateyPackage(
 			new DirectoryContent("tools/agent").WithFiles(
 				"agent/net50-agent.dll", "agent/net50-agent.pdb", "agent/net50-agent.dll.config",
 				"agent/net50-agent.deps.json", $"agent/net50-agent.runtimeconfig.json",
-				"agent/TestCentric.Agent.Core.dll", "agent/testcentric.engine.core.dll",
+				"agent/TestCentric.Agent.Core.dll",
 				"agent/testcentric.engine.api.dll", "agent/testcentric.extensibility.api.dll",
-				"agent/testcentric.extensibility.dll", "agent/testcentric.engine.metadata.dll",
+				"agent/testcentric.extensibility.dll", "agent/testcentric.metadata.dll",
 				"agent/TestCentric.InternalTrace.dll",
 				"agent/Microsoft.Bcl.AsyncInterfaces.dll", "agent/Microsoft.Extensions.DependencyModel.dll",
 				"agent/System.Text.Encodings.Web.dll", "agent/System.Runtime.CompilerServices.Unsafe.dll",
@@ -134,4 +132,4 @@ Task("Default")
 // EXECUTION
 //////////////////////////////////////////////////////////////////////
 
-RunTarget(target);
+RunTarget(CommandLineOptions.Target.Value);
