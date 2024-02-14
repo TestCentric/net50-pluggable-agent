@@ -44,5 +44,5 @@ close:
     The release is available on:
 
     - [GitHub Release](https://github.com/{owner}/{repository}/releases/tag/{milestone})
-    - [NuGet Package](https://www.nuget.org/packages/NUnit.Extension.Net50PluggableAgent/{milestone})
-    - [Chocolatey Package](https://chocolatey.org/packages/nunit-extension-net50-pluggable-agent/{milestone})
+    - [NuGet Package](https://www.nuget.org/packages/TestCentric.Extension.Net50PluggableAgent/{milestone})
+    - [Chocolatey Package](https://chocolatey.org/packages/testcentric-extension-net50-pluggable-agent/{milestone})
